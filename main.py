@@ -1,2 +1,1 @@
-print("Fuck you")
-print("bruh")
+#prodject
