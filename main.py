@@ -33,11 +33,11 @@ block_color()
 def random_block():
     global rand_selection
     current_blocks = getattr(bl, block_catagorys[current_color_index-1])
-    print(list(current_blocks))
     ran_block = rand.choice(list(current_blocks.keys()))
-    value = len(ran_block.split())
+    value = current_blocks[ran_block]
     rand_selection.set(f"Block: {ran_block}\nValue: {value}\nStack: {value*64:,}\nChest: {value*1728:,}\nDouble Chest: {value*3456:,}")
     print(ran_block)
+    print(f"value: {value}")
 random_block()
 
 #define label and button for block chatagory switching and redo button
@@ -49,10 +49,8 @@ current_block_selection = ttk.Label(master=window, textvariable=rand_selection, 
 
 
 
-
-
 #debug lable
-Debug_lable = ttk.Label(master=window, )
+Debug_lable = ttk.Label(master=window, text="Debug", font="system 15 bold")
 
 #packs
 
