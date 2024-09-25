@@ -29,13 +29,13 @@ rand_selection = tk.StringVar()
 #call block color to update
 block_color()
 
-
 # select and define the random block
 def random_block():
     global rand_selection
     current_blocks = getattr(bl, block_catagorys[current_color_index-1])
     ran_block = rand.choice(current_blocks)
-    rand_selection.set(f"Block:{ran_block}\n value: {round((len(ran_block)*2)**0.5)}")
+    value = len(ran_block.split())
+    rand_selection.set(f"Block: {ran_block}\nValue: {value}\nStack: {value*64:,}\nChest: {value*1728:,}\nDouble Chest: {value*3456:,}")
     print(ran_block)
 random_block()
 
