@@ -46,6 +46,7 @@ def diamond_switch():
     on_select(1)
 
 def on_select(event):
+    global value
     # Print the selected block for debugging purposes
     print(f"Selected: {block_box.get()}")
     # Get the current block category based on the current color index
@@ -55,15 +56,31 @@ def on_select(event):
     # Get the value of the selected block
     value = current_blocks[block_box.get()]
     # Check if the diamond switch is on
+    update_entry_title()
     if use_diamonds.get() == True:
         # Adjust the value accordingly
         value = value *119000000000
         value = round(value, 2)
         # Set the random selection string with the adjusted block details
-        rand_selection.set(f"Block: {block_box.get()/64}\nValue: {value}\nStack: {value*64:,.0f}\nChest: {value*1728:,.0f}\nDouble Chest: {value*3456:,.0f}\nChunk: {value*98304:,.0f}")
+        rand_selection.set(f"Block: {block_box.get()}\nValue: {value/64:,.0f}\nStack: {value:,.0f}\nChest: {value*1728/64:,.0f}\nDouble Chest: {value*3456/64:,.0f}\nChunk: {value*98304/64:,.0f}")
     else:
         # Set the random selection string with the block details
-        rand_selection.set(f"Block: {block_box.get()}\nValue: {value}\nStack: {value*64:,.0f}\nChest: {value*1728:,.0f}\nDouble Chest: {value*3456:,.0f}\nChunk: {value*98304:,.0f}")
+        rand_selection.set(f"Block: {block_box.get()}\nValue: {value/64}\nStack: {value:,.0f}\nChest: {value*1728/64:,.0f}\nDouble Chest: {value*3456/64:,.0f}\nChunk: {value*98304/64:,.0f}")
+
+# Function to update the entry title based on the value entered
+def update_entry_title(*args):
+    # Set the entry title string to the current value of the entry widget
+    try:
+        # Try to convert the entry value to a float
+        float_value = int(value_entry.get())
+        if use_diamonds.get() == True:
+            entry_title_str.set(f"Value of {float(value_entry.get())} {block_box.get()} is:{int(value_entry.get())*value*119000000000/64}")
+        else:
+            entry_title_str.set(f"Value of {float(value_entry.get())} {block_box.get()} is:{int(value_entry.get())*value/64}")
+    except ValueError:
+        # If conversion fails, set an error message
+        entry_title_str.set("Enter a valid number")
+
 #------------------------------------------------ input frame ------------------------------------------------
 
 #define label and button for block chatagory switching and redo button
@@ -74,7 +91,7 @@ color_chatagory_switch_label = ttk.Label(master=input_frame, text="Block color:"
 button_switch = ttk.Button(master=input_frame, textvariable=button_color, text="testing", command=block_color)
 
 # Checkbox to toggle the use of diamonds
-diamond_button = ttk.Checkbutton(master=input_frame, text="Use Diamonds Instead", variable=use_diamonds, command=diamond_switch)
+diamond_button = ttk.Checkbutton(master=input_frame, text="Use kr Instead", variable=use_diamonds, command=diamond_switch)
 
 # Label to display the current block selection
 current_block_selection = ttk.Label(master=window, textvariable=rand_selection, font="system 25 bold")
@@ -88,8 +105,14 @@ block_box.bind("<<ComboboxSelected>>", on_select)
 
 
 
-#debug lable
-Debug_lable = ttk.Label(master=window, text=" asd", font="system 15 bold")
+value_entry = tk.Entry(master=window)
+value_entry.bind("<KeyRelease>", update_entry_title)
+
+entry_title_str = tk.StringVar()
+entry_title = tk.Label(master=window, textvariable=entry_title_str, font="system 15 bold")
+
+#debug label
+Debug_lable = ttk.Label(master=window, text="Debug", font="system 15 bold")
 
 
 #------------------------------------------------ pack ------------------------------------------------
@@ -100,6 +123,8 @@ button_switch.pack(side="left")
 block_box.pack(side="left")
 diamond_button.pack(side="left")
 current_block_selection.pack()
+value_entry.pack()
+entry_title.pack()
 
 #debug
 Debug_lable.pack()
