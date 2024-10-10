@@ -3,6 +3,7 @@ from blocks import blocks
 from blocks import block_catagorys
 import random as rand
 import tkinter as tk
+from PIL import Image, ImageTk
 from tkinter import ttk
 
 
@@ -117,7 +118,20 @@ Debug_lable = ttk.Label(master=window, text="Debug", font="system 15 bold")
 
 
 #------------------------------------------------ pack ------------------------------------------------
+#image_path = r"C:\Users\tobOloT23\Desktop\projekt_1\background.jpg"  # Replace with your image path
+# Open the image
+#image = Image.open(image_path)
+
+# Resize the image to fit the window size
+# image = image.resize((960, 540), Image.LANCZOS)
+# background_image = ImageTk.PhotoImage(image)
+
+# Create a label to hold the image
+# background_label = tk.Label(window, image=background_image)
+
 #input packs
+# background_label.place(relwidth=1, relheight=1)
+# background_label.lower()  # Lower the background label to be behind everything else
 input_frame.pack()
 color_chatagory_switch_label.pack(side="left")
 button_switch.pack(side="left")
@@ -128,9 +142,6 @@ value_entry.pack()
 entry_title.pack()
 
 #debug
-Debug_lable.pack()
-
-
 
 
 #run
