@@ -61,6 +61,7 @@ def on_select(event):
         # Adjust the value accordingly
         value = value *119000000000
         value = round(value, 2)
+        update_entry_title()
         # Set the random selection string with the adjusted block details
         rand_selection.set(f"Block: {block_box.get()}\nValue: {value/64:,.0f}\nStack: {value:,.0f}\nChest: {value*1728/64:,.0f}\nDouble Chest: {value*3456/64:,.0f}\nChunk: {value*98304/64:,.0f}")
     else:
@@ -74,7 +75,7 @@ def update_entry_title(*args):
         # Try to convert the entry value to a float
         float_value = int(value_entry.get())
         if use_diamonds.get() == True:
-            entry_title_str.set(f"Value of {float(value_entry.get())} {block_box.get()} is:{int(value_entry.get())*value*119000000000/64}")
+            entry_title_str.set(f"Value of {float(value_entry.get())} {block_box.get()} is:{int(value_entry.get())*value/64}")
         else:
             entry_title_str.set(f"Value of {float(value_entry.get())} {block_box.get()} is:{int(value_entry.get())*value/64}")
     except ValueError:
